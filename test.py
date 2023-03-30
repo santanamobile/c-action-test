@@ -1,6 +1,6 @@
 import os, subprocess
 
-TEST_DIR = "/tests"
+TEST_DIR = "."
 CODE_FILE = "main.c"
 COMPILER_TIMEOUT = 10.0
 RUN_TIUMEOUT = 10.0
@@ -11,10 +11,10 @@ app_path = os.path.join(TEST_DIR, "app")
 print ("Building...")
 
 try:
-    ret = subprocess.run(["gcc", code_path, "-o", app_path)],
-        stdout-subprocess.PIPE,
-        stderr-subprocess.PIPE,
-        timeout=COMPILER_TIMEOUT)
+    ret = subprocess.run(["gcc", code_path, "-o", app_path],
+                        stdout-subprocess.PIPE,
+                        stderr-subprocess.PIPE,
+                        timeout=COMPILER_TIMEOUT)
 
 except Exception as e:
     print("ERROR: Compilation failed.", str(e))
