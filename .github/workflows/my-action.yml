@@ -1,30 +1,36 @@
-name: Test Workflow
+# Name of your workflow
+name: My Test Workflow
 
-# define the trigger events
+# Define the trigger event(s)
 on: [push]
 
-
-# jobs run in parallel by default
+# Jobs run in parallel by default, each runs steps in sequence
 jobs:
 
+    # Job to print something out
     say-hello:
         runs-on: ubuntu-latest
         steps:
-            - run: echo "Hello, Github Actions!"
+          - name: Say hello
+            run: echo "Hello, GitHub Actions!"
 
-    build_and_test:
+    # Job to build and test our C code
+    build-and-test:
         needs: [say-hello]
         runs-on: ubuntu-latest
         steps:
-
-            - name: Check out this repo
-              uses: actions/checkout@v3
-
-            - name: Install dependencies
-              uses: sudo apt install -y build-essential python3
-
-            - run: pwd
-
-            - name: Run Test
-              run: python3 test.py
+        
+            # Use github.com/actions/checkout to check out this repo
+          - name: Check out this repo
+            uses: actions/checkout@v3
             
+            # Install necessary packages
+          - name: Install dependencies
+            run: sudo apt install -y build-essential python3
+            
+            # See where we are in the VM
+          - run: pwd
+          
+            # Run our test
+          - name: Run test
+            run: python3 test.py
